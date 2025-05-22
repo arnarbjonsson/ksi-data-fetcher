@@ -1,0 +1,297 @@
+{
+  "timestamp": "2025-05-22T23:01:29.413920",
+  "age_group_id": 420,
+  "year": 2022,
+  "data": [
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla A-lið A riðill",
+      "tournament_id": "43887",
+      "url": "/mot/stakt-mot/?motnumer=43887",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla B-lið A riðill",
+      "tournament_id": "43902",
+      "url": "/mot/stakt-mot/?motnumer=43902",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla C-lið A riðill",
+      "tournament_id": "43922",
+      "url": "/mot/stakt-mot/?motnumer=43922",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla D-lið A riðill",
+      "tournament_id": "43941",
+      "url": "/mot/stakt-mot/?motnumer=43941",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla E-lið A riðill",
+      "tournament_id": "43961",
+      "url": "/mot/stakt-mot/?motnumer=43961",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla F-lið A riðill",
+      "tournament_id": "44001",
+      "url": "/mot/stakt-mot/?motnumer=44001",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla A-lið B riðill",
+      "tournament_id": "43883",
+      "url": "/mot/stakt-mot/?motnumer=43883",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla B-lið B riðill",
+      "tournament_id": "43901",
+      "url": "/mot/stakt-mot/?motnumer=43901",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla C-lið B riðill",
+      "tournament_id": "43921",
+      "url": "/mot/stakt-mot/?motnumer=43921",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla D-lið B riðill",
+      "tournament_id": "43942",
+      "url": "/mot/stakt-mot/?motnumer=43942",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla E-lið B riðill",
+      "tournament_id": "44081",
+      "url": "/mot/stakt-mot/?motnumer=44081",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla F-lið B riðill",
+      "tournament_id": "44101",
+      "url": "/mot/stakt-mot/?motnumer=44101",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla A-lið C riðill",
+      "tournament_id": "43885",
+      "url": "/mot/stakt-mot/?motnumer=43885",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla B-lið C riðill",
+      "tournament_id": "44221",
+      "url": "/mot/stakt-mot/?motnumer=44221",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla C-lið C riðill",
+      "tournament_id": "44241",
+      "url": "/mot/stakt-mot/?motnumer=44241",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla D-lið C riðill",
+      "tournament_id": "44242",
+      "url": "/mot/stakt-mot/?motnumer=44242",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla A-lið E riðill",
+      "tournament_id": "43882",
+      "url": "/mot/stakt-mot/?motnumer=43882",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla B-lið E riðill",
+      "tournament_id": "44243",
+      "url": "/mot/stakt-mot/?motnumer=44243",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót KSÍ - 5. flokkur karla C-lið E riðill",
+      "tournament_id": "44261",
+      "url": "/mot/stakt-mot/?motnumer=44261",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir 7 og 8 manna",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla umspil A-lið",
+      "tournament_id": "45081",
+      "url": "/mot/stakt-mot/?motnumer=45081",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla umspil B-lið",
+      "tournament_id": "45102",
+      "url": "/mot/stakt-mot/?motnumer=45102",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla umspil C-lið",
+      "tournament_id": "45161",
+      "url": "/mot/stakt-mot/?motnumer=45161",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla umspil D-lið",
+      "tournament_id": "45182",
+      "url": "/mot/stakt-mot/?motnumer=45182",
+      "year": "2022",
+      "status": "Í vinnslu",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla A-lið Úrslit",
+      "tournament_id": "45083",
+      "url": "/mot/stakt-mot/?motnumer=45083",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla B-lið Úrslit",
+      "tournament_id": "45101",
+      "url": "/mot/stakt-mot/?motnumer=45101",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla C-lið Úrslit",
+      "tournament_id": "45162",
+      "url": "/mot/stakt-mot/?motnumer=45162",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla D-lið Úrslit",
+      "tournament_id": "45181",
+      "url": "/mot/stakt-mot/?motnumer=45181",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla E-lið Úrslit",
+      "tournament_id": "45221",
+      "url": "/mot/stakt-mot/?motnumer=45221",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    },
+    {
+      "name": "Íslandsmót - 5. flokkur karla F-lið Úrslit",
+      "tournament_id": "45241",
+      "url": "/mot/stakt-mot/?motnumer=45241",
+      "year": "2022",
+      "status": "",
+      "category": "KSÍ leikir",
+      "age_group": "5. flokkur",
+      "gender": "Karlar"
+    }
+  ]
+}
