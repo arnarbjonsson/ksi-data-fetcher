@@ -49,6 +49,7 @@ class MatchFetcher:
         total_matches = 0
         matches_by_year = {}
         tournaments_by_year = {}
+        all_matches = []
         
         # Process each year in the range
         for year in range(end_year, start_year - 1, -1):
@@ -99,6 +100,8 @@ class MatchFetcher:
                         total_matches += len(matches)
                 
                 matches_by_year[year] = year_matches
+                all_matches += year_matches
+
                 print(f"\nFound {len(year_matches)} matches in {year}")
             else:
                 print(f"No tournaments found for {year}")
@@ -107,7 +110,8 @@ class MatchFetcher:
         return {
             'total_matches': total_matches,
             'matches_by_year': matches_by_year,
-            'tournaments_by_year': tournaments_by_year
+            'tournaments_by_year': tournaments_by_year,
+            'all_matches': all_matches,
         }
     
     def filter_team_matches(self, matches: List[Dict[str, Any]], team_id: str) -> List[Dict[str, Any]]:

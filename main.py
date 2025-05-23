@@ -191,9 +191,15 @@ def main(start_year=2024, end_year=2024, team_id=None, age_group_id=AgeGroup.FIF
             fairness_stats = calculate_fairness_stats(tournament_matches)
             print(f"  {fairness_stats}")
 
-        print(f"\n\nOverall Fairness:")
-        fairness_stats = calculate_fairness_stats(matches)
-        print(f"  {fairness_stats}")
+    all_matches = result['all_matches']
+    if team_id:
+        print(f"\nOverall Results:")
+        result_stats = calculate_result_stats(all_matches, team_id)
+        print(f"  {result_stats}")
+
+    print(f"\nOverall Fairness:")
+    fairness_stats = calculate_fairness_stats(all_matches)
+    print(f"  {fairness_stats}")
 
 if __name__ == '__main__':
     args = parse_args()
