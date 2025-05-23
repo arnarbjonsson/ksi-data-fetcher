@@ -30,22 +30,32 @@ pipenv install
 
 ## Usage
 
-The script can be run in two ways:
+The script accepts several named parameters to customize the data fetching:
 
-1. Default mode (fetches data for current year):
 ```bash
+pipenv run python main.py [--start-year YEAR] [--end-year YEAR] [--team TEAM_ID] [--age-group AGE_GROUP_ID] [--tournament-type TYPE_ID]
+```
+
+Parameters:
+- `--start-year`: Year to start fetching from (default: 2024)
+- `--end-year`: Year to end fetching at (default: 2024)
+- `--team`: Team ID to filter matches for (optional)
+- `--age-group`: Age group ID (default: 420 for 5th flokkur)
+- `--tournament-type`: Tournament type ID (default: 61 for Íslandsmót)
+
+Examples:
+```bash
+# Fetch all 5th flokkur matches from 2024
 pipenv run python main.py
-```
 
-2. Specify a year range:
-```bash
-pipenv run python main.py [start_year] [end_year]
-```
+# Fetch Grótta's matches (team ID 170) for 2023-2024
+pipenv run python main.py --start-year 2023 --end-year 2024 --team 170
 
-Example:
-```bash
-# Fetch data for 2023-2024
-pipenv run python main.py 2023 2024
+# Fetch matches for a specific age group (e.g., 4th flokkur, ID: 4)
+pipenv run python main.py --age-group 4
+
+# Fetch matches from a specific tournament type (e.g., Faxaflóamót, ID: 2340)
+pipenv run python main.py --tournament-type 2340
 ```
 
 ## Output Format
@@ -55,10 +65,13 @@ The script outputs:
 - Matches grouped by tournament
 - For each tournament:
   - Match details (date, teams, scores)
-  - Statistics showing win/draw/loss percentages
+  - Win/Draw/Loss statistics (when filtering for a specific team)
+  - Match fairness statistics based on goal differences:
+    - Fair: 0-2 goal difference
+    - Uneven: 3-5 goal difference
+    - Devastating: 6+ goal difference
 
-## Example Output
-
+Example Output:
 ```
 Year 2024:
 - Total matches: 1039
@@ -68,7 +81,9 @@ Grótta's matches by tournament:
 Íslandsmót KSÍ - 5. flokkur karla A-lið:
   2024-05-12: Grótta vs Leiknir R. (8-1)
   2024-05-29: Grótta vs Álftanes (10-3)
-  Statistics: (W: 75.0% / D: 12.5% / L: 12.5%)
+  
+  Results: W: 75% / D: 12% / L: 13%
+  Fairness: 25% / 50% / 25% (Fair / Uneven / Devastating)
 ```
 
 ## Contributing
