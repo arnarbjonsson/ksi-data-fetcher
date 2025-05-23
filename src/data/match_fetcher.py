@@ -10,7 +10,7 @@ class MatchFetcher:
         self.soap_client = soap_client
         self.web_scraper = web_scraper
     
-    def get_matches_for_years(self, age_group_id: int, start_year: int, end_year: int) -> Dict[str, Any]:
+    def get_matches_for_years(self, age_group_id: int, start_year: int, end_year: int, tournament_type: int) -> Dict[str, Any]:
         """
         Fetch all matches for a given age group between specified years.
         
@@ -34,7 +34,7 @@ class MatchFetcher:
             print(f"\nProcessing {year} tournaments...")
             
             # Get tournaments for this year
-            tournaments = self.web_scraper.get_tournaments_in_age_group(age_group_id, year=year)
+            tournaments = self.web_scraper.get_tournaments_in_age_group(age_group_id, year=year, tournament_type=tournament_type)
             
             if tournaments:
                 print(f"Found {len(tournaments)} tournaments in {year}")

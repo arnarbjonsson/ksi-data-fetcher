@@ -27,6 +27,7 @@ class Team(Enum):
     VALUR = 105
     VIKINGUR_R = 106
     THROTTUR_R = 107
+    IR = 109
     FJOLNIR = 112
     LEIKNIR_R = 111
     
@@ -51,4 +52,17 @@ class Team(Enum):
         for member in cls:
             if member.value == value:
                 return member.name.replace('_', ' ').title()
-        return f"Unknown Team ({value})" 
+        return f"Unknown Team ({value})"
+
+
+class TournamentType(Enum):
+    ISLANDSMOT = 61
+    FAXAFLOAMOT = 2340
+
+    @classmethod
+    def get_name(cls, value):
+        """Get human readable name for a tournament type"""
+        for member in cls:
+            if member.value == value:
+                return member.name.replace('_', ' ').title()
+        return f"Unknown Tournament type ({value})"

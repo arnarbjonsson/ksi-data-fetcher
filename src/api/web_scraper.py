@@ -4,6 +4,9 @@ from typing import List, Dict, Any, Optional
 from urllib.parse import urlencode
 from datetime import datetime
 
+from src.const import TournamentType
+
+
 class KSIWebScraper:
     """Scraper for fetching tournament data from the KSÍ website."""
     
@@ -169,7 +172,7 @@ class KSIWebScraper:
             print(f"Unexpected error processing tournament {tournament_id}: {str(e)}")
             return []
         
-    def get_tournaments_in_age_group(self, age_group_id: int, year: int = 2025, gender: int = 1) -> List[Dict[str, Any]]:
+    def get_tournaments_in_age_group(self, age_group_id: int, year: int = 2025, gender: int = 1, tournament_type: int=TournamentType.ISLANDSMOT.value) -> List[Dict[str, Any]]:
         """
         Fetch tournaments for a specific age group from the KSÍ website.
         
@@ -184,7 +187,7 @@ class KSIWebScraper:
         params = {
             'filter': '',
             'flokkur': age_group_id,
-            'tegund': 61,  # Not sure what this represents, but it's in the example URL
+            'tegund': tournament_type,
             'ar': year,
             'kyn': gender
         }
