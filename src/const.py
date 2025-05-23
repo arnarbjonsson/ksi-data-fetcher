@@ -22,12 +22,13 @@ class AgeGroup(Enum):
 class Team(Enum):
     """Team IDs from KSÍ's system"""
     # Reykjavík teams
-    KR = 103
-    FRAM = 104
-    VALUR = 105
-    VIKINGUR_R = 106
-    THROTTUR_R = 107
+    KR = 107
+    FRAM = 108
+    VALUR = 101
+    VIKINGUR_R = 103
+    THROTTUR_R = 104
     IR = 109
+    FYLKIR = 110
     FJOLNIR = 112
     LEIKNIR_R = 111
     
@@ -40,6 +41,7 @@ class Team(Enum):
     FH = 220
     HAUKAR = 221
     KEFLAVIK = 240
+    ALFTANES = 226
     
     # Other regions
     IA = 301  # Akranes
@@ -57,6 +59,7 @@ class Team(Enum):
 
 class TournamentType(Enum):
     ISLANDSMOT = 61
+    RVKMOT = 65
     FAXAFLOAMOT = 2340
 
     @classmethod

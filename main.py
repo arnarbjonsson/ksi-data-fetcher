@@ -63,7 +63,7 @@ def calculate_result_stats(matches, team_id):
         draw_pct = (result_stats['draw'] / played_matches) * 100
         loss_pct = (result_stats['loss'] / played_matches) * 100
         
-        return f"Results: (W: {win_pct:.1f}% / D: {draw_pct:.1f}% / L: {loss_pct:.1f}%)"
+        return f"Results: W: {win_pct:.0f}% / D: {draw_pct:.0f}% / L: {loss_pct:.0f}%"
     else:
         return "No matches played yet"
 
@@ -87,7 +87,7 @@ def calculate_fairness_stats(matches):
         uneven_pct = (fairness_stats['uneven'] / played_matches) * 100
         devastating_pct = (fairness_stats['devastating'] / played_matches) * 100
         
-        return f"Fairness: ({fair_pct:.1f}% / {uneven_pct:.1f}% / {devastating_pct:.1f}%) (Fair / Uneven / Devastating)"
+        return f"Fairness: {fair_pct:.0f}% / {uneven_pct:.0f}% / {devastating_pct:.0f}% (Fair / Uneven / Devastating)"
     else:
         return "No matches played yet"
 
@@ -116,7 +116,7 @@ def main(start_year=2024, end_year=2024, team_id=None):
         age_group_id=age_group.value,
         start_year=start_year,
         end_year=end_year,
-        tournament_type=TournamentType.FAXAFLOAMOT.value,
+        tournament_type=TournamentType.ISLANDSMOT.value,
     )
     
     print(f"\nTotal matches found: {result['total_matches']}")
@@ -125,8 +125,7 @@ def main(start_year=2024, end_year=2024, team_id=None):
     for year, matches in result['matches_by_year'].items():
         print(f"\nYear {year}:")
         print(f"- Total matches: {len(matches)}")
-        print(f"- {team_name} matches: {len(matches)}")
-        
+
         if not matches:
             return
 
@@ -161,6 +160,10 @@ def main(start_year=2024, end_year=2024, team_id=None):
 
             fairness_stats = calculate_fairness_stats(tournament_matches)
             print(f"  {fairness_stats}")
+
+        print(f"\n\nOverall Fairness:")
+        fairness_stats = calculate_fairness_stats(matches)
+        print(f"  {fairness_stats}")
 
 if __name__ == '__main__':
     import sys
