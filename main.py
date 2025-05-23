@@ -205,4 +205,4 @@ if __name__ == '__main__':
         tournament_type=args.tournament_type
     )
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# pipenv run python main.py --start-year 2020 --end-year 2025 --team 170
