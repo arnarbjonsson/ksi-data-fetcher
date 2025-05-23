@@ -1,16 +1,36 @@
 from typing import List, Dict, Any
 from src.api.ksi_client import KSIClient
 from src.api.web_scraper import KSIWebScraper
+from src.data.cache_manager import CacheManager
 from time import sleep
+from datetime import datetime
 
 class MatchFetcher:
     """Class for fetching and processing football matches."""
     
-    def __init__(self, soap_client: KSIClient, web_scraper: KSIWebScraper):
+    def __init__(self, soap_client: KSIClient, web_scraper: KSIWebScraper, cache_ttl_days: int = 1):
         self.soap_client = soap_client
         self.web_scraper = web_scraper
+        self.cache = CacheManager(ttl_days=cache_ttl_days)
+
+    def _convert_match_data(self, raw_match: Dict[str, Any], tournament) -> Dict[str, Any]:
+        """Convert raw match data from SOAP API to standardized format."""
+        return {
+            'match_id': raw_match.get('LeikurNumer', None),
+            'date': raw_match.get('LeikDagur', None),
+            'home_team_id': raw_match.get('FelagHeimaNumer', None),
+            'away_team_id': raw_match.get('FelagUtiNumer', None),
+            'home_team_name': raw_match.get('FelagHeimaNafn', None),
+            'away_team_name': raw_match.get('FelagUtiNafn', None),
+            'home_score': int(raw_match.get('UrslitHeima', 0)) if raw_match.get('UrslitHeima') else None,
+            'away_score': int(raw_match.get('UrslitUti', 0)) if raw_match.get('UrslitUti') else None,
+            'venue': raw_match.get('VollurNafn', None),
+            'is_played': bool(raw_match.get('UrslitHeima') and raw_match.get('UrslitUti')),
+            'tournament_id': int(tournament['tournament_id']),
+            'tournament_name': tournament['name'],
+        }
     
-    def get_matches_for_years(self, age_group_id: int, start_year: int, end_year: int, tournament_type: int) -> Dict[str, Any]:
+    def get_matches_for_years(self, age_group_id: int, start_year: int, end_year: int, tournament_type: int = None) -> Dict[str, Any]:
         """
         Fetch all matches for a given age group between specified years.
         
@@ -18,6 +38,7 @@ class MatchFetcher:
             age_group_id: The ID of the age group to fetch matches for
             start_year: Start year (inclusive)
             end_year: End year (inclusive)
+            tournament_type: Optional tournament type ID to filter by
             
         Returns:
             Dictionary containing:
@@ -33,18 +54,25 @@ class MatchFetcher:
         for year in range(end_year, start_year - 1, -1):
             print(f"\nProcessing {year} tournaments...")
             
-            # Get tournaments for this year
-            tournaments = self.web_scraper.get_tournaments_in_age_group(age_group_id, year=year, tournament_type=tournament_type)
+            # Try to get tournaments from cache
+            cache_key = self.cache.build_key("tournaments", age_group=age_group_id, year=year, tournament_type=tournament_type)
+            tournaments = self.cache.get(cache_key)
+            
+            if tournaments is None:
+                # Not in cache, fetch from API
+                tournaments = self.web_scraper.get_tournaments_in_age_group(age_group_id, year=year, tournament_type=tournament_type)
+                if tournaments:
+                    # Store in cache
+                    self.cache.set(cache_key, tournaments)
             
             if tournaments:
                 print(f"Found {len(tournaments)} tournaments in {year}")
                 tournaments_by_year[year] = tournaments
                 
-                # Filter tournaments that are likely to have standings
-                regular_tournaments = [t for t in tournaments 
-                                    if not any(x in t['name'].lower() for x in ['úrslit', 'umspil'])]
+                # All tournaments are already filtered by type in the web scraper
+                regular_tournaments = tournaments
                 
-                print(f"Processing {len(regular_tournaments)} regular season tournaments...")
+                print(f"Processing {len(regular_tournaments)} tournaments...")
                 year_matches = []
                 
                 # Check each tournament for matches
@@ -52,30 +80,23 @@ class MatchFetcher:
                     tournament_id = int(tournament['tournament_id'])
                     print(f"\rChecking tournament {i}/{len(regular_tournaments)}: {tournament['name']}", end='')
                     
-                    # Get matches from SOAP API
-                    raw_matches = self.soap_client.get_tournament_matches(tournament_id)
-                    if raw_matches:
-                        # Convert SOAP API response format to our standard format
-                        matches = [{
-                            'match_id': match.get('LeikurNumer', None),
-                            'date': match.get('LeikDagur', None),
-                            'home_team_id': match.get('FelagHeimaNumer', None),
-                            'away_team_id': match.get('FelagUtiNumer', None),
-                            'home_team_name': match.get('FelagHeimaNafn', None),
-                            'away_team_name': match.get('FelagUtiNafn', None),
-                            'home_score': int(match.get('UrslitHeima', 0)) if match.get('UrslitHeima') else None,
-                            'away_score': int(match.get('UrslitUti', 0)) if match.get('UrslitUti') else None,
-                            'venue': match.get('VollurNafn', None),
-                            'is_played': bool(match.get('UrslitHeima') and match.get('UrslitUti')),
-                            'tournament_id': str(tournament_id),
-                            'tournament_name': tournament['name']
-                        } for match in raw_matches]
-                        
+                    # Try to get matches from cache
+                    cache_key = self.cache.build_key("matches", tournament_id=tournament_id)
+                    matches = self.cache.get(cache_key)
+                    
+                    if matches is None:
+                        # Not in cache, fetch from API
+                        raw_matches = self.soap_client.get_tournament_matches(tournament_id)
+                        if raw_matches:
+                            matches = [self._convert_match_data(raw_match, tournament) for raw_match in raw_matches]
+                            self.cache.set(cache_key, matches)
+                            
+                            # Add a small delay between API calls
+                            sleep(0.5)
+                    
+                    if matches:
                         year_matches.extend(matches)
                         total_matches += len(matches)
-                    
-                    # Add a small delay between API calls
-                    sleep(0.5)
                 
                 matches_by_year[year] = year_matches
                 print(f"\nFound {len(year_matches)} matches in {year}")

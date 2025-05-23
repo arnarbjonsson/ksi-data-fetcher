@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 [[source]]
 url = "https://pypi.org/simple"
 verify_ssl = true
@@ -9,8 +11,10 @@ pandas = "*"
 plotly = "*"
 python-dotenv = "*"
 beautifulsoup4 = "*"
+zeep = "*"
+diskcache = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.13" 
+python_version = "3.13"

@@ -3,11 +3,13 @@
 # Press Alt+Shift+X to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
+import argparse
 from src.api.ksi_client import KSIClient
 from src.api.web_scraper import KSIWebScraper
 from src.data.match_fetcher import MatchFetcher
 from src.const import AgeGroup, Team, TournamentType
 from collections import defaultdict
+from datetime import datetime
 
 def get_match_result(match, team_id):
     """Get if the team won, drew or lost the match"""
@@ -67,11 +69,12 @@ def calculate_result_stats(matches, team_id):
     else:
         return "No matches played yet"
 
+
 def calculate_fairness_stats(matches):
     """Calculate fairness statistics based on goal differences"""
     # Fairness stats
     fairness_stats = {'fair': 0, 'uneven': 0, 'devastating': 0, 'not_played': 0}
-    
+
     for match in matches:
         # Calculate fairness stats
         fairness = get_match_fairness(match)
@@ -79,26 +82,54 @@ def calculate_fairness_stats(matches):
             fairness_stats[fairness] += 1
         else:
             fairness_stats['not_played'] += 1
-    
+
     played_matches = len(matches) - fairness_stats['not_played']
     if played_matches > 0:
         # Calculate fairness percentages
         fair_pct = (fairness_stats['fair'] / played_matches) * 100
         uneven_pct = (fairness_stats['uneven'] / played_matches) * 100
         devastating_pct = (fairness_stats['devastating'] / played_matches) * 100
-        
+
         return f"Fairness: {fair_pct:.0f}% / {uneven_pct:.0f}% / {devastating_pct:.0f}% (Fair / Uneven / Devastating)"
     else:
         return "No matches played yet"
 
-def main(start_year=2024, end_year=2024, team_id=None):
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(description='Fetch and analyze football match data from KSÍ.')
+    parser.add_argument('--start-year', type=int, default=2024,
+                      help='The year to start fetching matches from (inclusive)')
+    parser.add_argument('--end-year', type=int, default=2024,
+                      help='The year to end fetching matches at (inclusive)')
+    parser.add_argument('--team', type=int, default=None,
+                      help='The ID of the team to analyze')
+    parser.add_argument('--age-group', type=int, default=AgeGroup.FIFTH_FLOKKUR.value,
+                      help='The age group ID to fetch matches for')
+    parser.add_argument('--tournament-type', type=int, default=TournamentType.ISLANDSMOT.value,
+                      help='The tournament type ID to filter by')
+    
+    return parser.parse_args()
+
+def format_date(date_str):
+    """Format ISO date string for display."""
+    if not date_str:
+        return 'No date'
+    try:
+        date = datetime.fromisoformat(date_str)
+        return date.strftime('%Y-%m-%d %H:%M')
+    except (ValueError, TypeError):
+        return date_str
+
+def main(start_year=2024, end_year=2024, team_id=None, age_group_id=AgeGroup.FIFTH_FLOKKUR.value, tournament_type=TournamentType.ISLANDSMOT.value):
     """
     Fetch and display match statistics for a youth team.
     
     Args:
         start_year (int): The year to start fetching matches from (inclusive)
         end_year (int): The year to end fetching matches at (inclusive)
-        team_id (int): The ID of the team to analyze (defaults to Grótta)
+        team_id (int): The ID of the team to analyze
+        age_group_id (int): The age group ID to fetch matches for
+        tournament_type (int): The tournament type ID to filter by
     """
     # Initialize components
     soap_client = KSIClient()
@@ -106,17 +137,16 @@ def main(start_year=2024, end_year=2024, team_id=None):
     match_fetcher = MatchFetcher(soap_client, web_scraper)
     
     # Get team name for display
-    team_name = Team.get_name(team_id)
-    age_group = AgeGroup.FIFTH_FLOKKUR
-    age_group_name = AgeGroup.get_name(age_group.value)
+    team_name = Team.get_name(team_id) if team_id else "Unknown Team"
+    age_group_name = AgeGroup.get_name(age_group_id)
     
     print(f"\nFetching matches for {team_name} in {age_group_name}")
     
     result = match_fetcher.get_matches_for_years(
-        age_group_id=age_group.value,
+        age_group_id=age_group_id,
         start_year=start_year,
         end_year=end_year,
-        tournament_type=TournamentType.ISLANDSMOT.value,
+        tournament_type=tournament_type,
     )
     
     print(f"\nTotal matches found: {result['total_matches']}")
@@ -127,7 +157,7 @@ def main(start_year=2024, end_year=2024, team_id=None):
         print(f"- Total matches: {len(matches)}")
 
         if not matches:
-            return
+            continue
 
         if team_id:
             matches = [
@@ -145,12 +175,12 @@ def main(start_year=2024, end_year=2024, team_id=None):
             print(f"\n{tournament_name}:")
 
             # Print matches sorted by date
-            for match in sorted(tournament_matches, key=lambda x: x['date']):
+            for match in sorted(tournament_matches, key=lambda x: x['date'] or '9999-12-31'):
                 home_team = match['home_team_name']
                 away_team = match['away_team_name']
                 score = f"{match['home_score']}-{match['away_score']}" if match['is_played'] else 'Not played'
-                date = match['date'].split('T')[0]  # Just show the date part
                 if team_id:
+                    date = format_date(match['date'])
                     print(f"  {date}: {home_team} {score} {away_team}")
 
             # Print tournament statistics
@@ -166,24 +196,13 @@ def main(start_year=2024, end_year=2024, team_id=None):
         print(f"  {fairness_stats}")
 
 if __name__ == '__main__':
-    import sys
-    
-    # Parse command line arguments if provided, otherwise use defaults
-    try:
-        if len(sys.argv) > 3:
-            start_year = int(sys.argv[1])
-            end_year = int(sys.argv[2])
-            team_id = int(sys.argv[3])
-            main(start_year, end_year, team_id)
-        elif len(sys.argv) > 2:
-            start_year = int(sys.argv[1])
-            end_year = int(sys.argv[2])
-            main(start_year, end_year)
-        else:
-            main()  # Use default values
-    except ValueError:
-        print("Error: Years must be valid integers")
-        print("Usage: python main.py [start_year] [end_year]")
-        sys.exit(1)
+    args = parse_args()
+    main(
+        start_year=args.start_year,
+        end_year=args.end_year,
+        team_id=args.team,
+        age_group_id=args.age_group,
+        tournament_type=args.tournament_type
+    )
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
